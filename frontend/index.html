@@ -5,8 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Reacoes</title>
     <!-- Link para estilos css-->
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <div class="container">
+      <h1>ACERTE A REAÇÃO PEDIDA</h1>
+
+      <div class="image ativo">
+        <img src="assets/images/emogi_neutro.png" alt="neutro" />
+      </div>
+
+      <div class="text-reacao">
+        <h2>A reação é:</h2>
+      </div>
+
+      <div class="label-container">
+        <div class="label">insira a frase que deseja que o boneco reaja:</div>
+        <textarea
+          class="container-input smooth-type"
+          type="input-text"
+          id="input-text"
+        ></textarea>
+      </div>
+
+      <button id="predict-btn" class="button">REAGIR</button>
+    </div>
     <!-- SCRIPTS JS-->
   </body>
 </html>
