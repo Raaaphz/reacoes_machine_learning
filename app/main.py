@@ -2,6 +2,7 @@ import string
 import pandas as pd
 import uvicorn
 import spacy
+import random
 from spacy.lang.en.stop_words import STOP_WORDS
 from core.config import app
 from db.model_loader import ModelLoader
@@ -48,6 +49,40 @@ for Tweets, Feeling in zip(dataset['Tweets'], dataset['Feeling']):
         dic = ({'HAPPY': False, 'SAD': False, 'ANGRY': False, 'FEAR': False, 'DISGUST': True})
     dataset_final.append([Tweets, dic.copy()])
 
+#criar modelo em branco para ingles
+model = spacy.blank('pt')
+
+categorias = model.add_pipe('textcat')
+
+categorias.add_label('HAPPY')
+categorias.add_label('SAD')
+categorias.add_label('FEAR')
+categorias.add_label('DISGUST')
+
+historico = []
+
+from spacy.training.example import Example
+
+model.initialize()
+
+for epoca in range(1000):
+    random.shuffle(dataset_final)
+    losses = {}
+    for batch in spacy.util.minibatch(dataset_final, 30):
+        examples = []
+        for Tweets, categorias in batch:
+            doc = model.make_doc(Tweets)
+            example = Example.from_dict(doc, {"cats": categorias})
+            examples.append(example)
+        model.update(examples, losses=losses)
+    if epoca % 100 == 0:
+        historico.append(losses)
+        
+historico_loss = []
+for i in historico:
+    historico_loss.append(i.get('textcat'))
+            
+            
 #rodar o server
 if __name__ =="__main__":
     uvicorn.run("main:app", host="0.0.0.0",port=3636, reload=True)
