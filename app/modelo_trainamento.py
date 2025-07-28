@@ -4,8 +4,10 @@ import spacy
 import re
 import random
 from spacy.lang.en.stop_words import STOP_WORDS
+from spacy.training.example import Example
 
-dataset=pd.read_csv("C:/Users/rapha/VSCodeProjects/tcc_machine_learning/app/models/data.csv", encoding='utf-8')
+print('Lendo CSV........')
+dataset=pd.read_csv("app/models/data.csv", encoding='utf-8')
 
 #processamento dos dados
 pontuacoes = string.punctuation
@@ -27,7 +29,7 @@ def preprocessamento(Tweets):
     Tweets = re.sub(r'https?://\S+', '', Tweets)
     
     #Remove emogis (UNICODE RANGES MAIS COMUNS)
-    Tweets = re.sub(r'[\U00010000-\U0010ffff]]', '', Tweets)
+    Tweets = re.sub(r'[\U00010000-\U0010ffff]', '', Tweets)
     
     #remove multiplos espacos
     Tweets = re.sub(r'\s+', ' ', Tweets)
@@ -48,50 +50,45 @@ def preprocessamento(Tweets):
 
 #pre processamento da base de dados
 dataset['Tweets'] = dataset['Tweets'].apply(preprocessamento)
+print('Preprocessamento APLICADO!')
+
+#removendo dados com texto muito curtos ou vazios
+dataset = dataset[dataset['Tweets'].str.strip().str.split().str.len() > 2]
 
 dataset_final = []
-i = 0
 for Tweets, Feeling in zip(dataset['Tweets'], dataset['Feeling']):
-    if Feeling =='happy':
-        dic = ({'HAPPY': True, 'SAD': False, 'ANGRY': False, 'FEAR': False, 'DISGUST': False})
-    elif Feeling =='sad':
-        dic = ({'HAPPY': False, 'SAD': True, 'ANGRY': False, 'FEAR': False, 'DISGUST': False})
-    elif Feeling == 'angry':
-        dic = ({'HAPPY': False, 'SAD': False, 'ANGRY': True, 'FEAR': False, 'DISGUST': False})
-    elif Feeling == 'fear':
-        dic = ({'HAPPY': False, 'SAD': False, 'ANGRY': False, 'FEAR': True, 'DISGUST': False})
-    elif Feeling == 'disgust':
-        dic = ({'HAPPY': False, 'SAD': False, 'ANGRY': False, 'FEAR': False, 'DISGUST': True})
+    dic = {'HAPPY': False, 'SAD': False, 'ANGRY': False, 'FEAR': False, 'DISGUST': False, 'SURPRISE': False}
+    dic[Feeling.upper()] = True
+    dataset_final.append([Tweets, dic.copy()])
     dataset_final.append([Tweets, dic.copy()])
 
 #criar modelo em branco para ingles
-model = spacy.blank('pt')
+model = spacy.blank('en')
 
-categorias = model.add_pipe('textcat')
+textcat = model.add_pipe('textcat')
 
-categorias.add_label('HAPPY')
-categorias.add_label('SAD')
-categorias.add_label('FEAR')
-categorias.add_label('DISGUST')
+print(dataset['Feeling'].value_counts())
 
-historico = []
-
-from spacy.training.example import Example
+for categoria in ['HAPPY', 'SAD', 'ANGRY', 'FEAR', 'DISGUST', 'SURPRISE']:
+    textcat.add_label(categoria)
 
 model.initialize()
 
-for epoca in range(1000):
+historico = []
+
+for epoca in range(25):
     random.shuffle(dataset_final)
     losses = {}
-    for batch in spacy.util.minibatch(dataset_final, 30):
+    for batch in spacy.util.minibatch(dataset_final, 128):
         examples = []
         for Tweets, categorias in batch:
             doc = model.make_doc(Tweets)
             example = Example.from_dict(doc, {"cats": categorias})
             examples.append(example)
-        model.update(examples, losses=losses)
-    if epoca % 100 == 0:
-        historico.append(losses)
+        model.update(examples, losses=losses, drop=0.2)
+    if epoca % 1 == 0:
+        #historico.append(losses)
+        print(f"Época {epoca}, perdas: {losses}")
 
-model.to_disk('modelo_reacoes')
+model.to_disk('app/models/modelo_reacoes')
 print('modelo treinado com sucesso')

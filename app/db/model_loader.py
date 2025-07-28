@@ -1,8 +1,8 @@
-import joblib
+import spacy
 
-class ModelLoader:
-    def __init___(self, model_path: str):
-        self.model = joblib.load(model_path)
-        
-        def get_model(self):
-            return self.model
+class ModeLoader:
+    def __init__(self, model_path):
+        self.model_path = model_path
+    
+    def get_model(self):
+        return spacy.load(self.model_path)

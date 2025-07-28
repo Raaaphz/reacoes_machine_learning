@@ -1,0 +1,12 @@
+{
+  "labels":[
+    "HAPPY",
+    "SAD",
+    "ANGRY",
+    "FEAR",
+    "DISGUST",
+    "SURPRISE"
+  ],
+  "threshold":0.0,
+  "positive_label":null
+}
