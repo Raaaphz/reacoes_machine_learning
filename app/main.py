@@ -25,7 +25,7 @@ async def predict(data: TextInput):
         prediction = prediction_service.make_prediction(data.text)
         return {"prediction": prediction}
     except Exception as e:
-        raise HTTPException(status_code=500, datail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))
             
 #rodar o server
 if __name__ =="__main__":

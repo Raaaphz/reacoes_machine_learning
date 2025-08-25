@@ -235,3 +235,9 @@ h1 {
   font-style: bold;
   color: #fff;
 }
+
+.result {
+  position: absolute;
+  margin-top: 100px;
+  margin-left: 100px;
+}

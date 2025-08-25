@@ -1,5 +1,5 @@
-import { dashboardModel } from "../model/dashboardModel.js";
-import { DashboardView } from "../view/dashboardView";
+import { DashboardModel } from "../model/dashboardModel.js";
+import { DashboardView } from "../view/dashboardView.js";
 
 const handlePrediction = async () => {
   const texto = DashboardView.getInputText();
@@ -10,7 +10,7 @@ const handlePrediction = async () => {
   }
 
   try {
-    const prediction = await dashboardModel.makePrediction(texto);
+    const prediction = await DashboardModel.makePrediction(texto);
     DashboardView.displayResult(`A reação foi de: ${prediction}`); //TAMBÉM ADAPTAR PARA EXIBIR IMAGEM
   } catch (error) {
     DashboardView.displayResult(error.message);

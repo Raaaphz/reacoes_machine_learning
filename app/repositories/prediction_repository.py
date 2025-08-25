@@ -3,4 +3,9 @@ class PredictionRepository:
         self.model = model
     
     def predict(self, text):
-        return self.model.predict([text])[0]
+        doc = self.model(text)
+        
+        if hasattr(doc, "cats") and doc.cats:
+            return max (doc.cats, key=doc.cats.get)
+        return "unknown"
+       # return self.model.predict([text])[0]

@@ -11,7 +11,7 @@ predictButton.addEventListener("click", async () => {
   }
 
   try {
-    const response = await fetch("" /*link api*/, {
+    const response = await fetch("http://localhost:3636/api/prediction", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",

@@ -1,15 +1,12 @@
 export class DashboardModel {
-  static async makePrediticion(texto) {
-    const response = await fetch(
-      "",
-      /*link da api*/ {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ text: texto }),
-      }
-    );
+  static async makePrediction(texto) {
+    const response = await fetch("http://localhost:3636/api/prediction", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: texto }),
+    });
 
     if (!response.ok) {
       const error = await response.json();
