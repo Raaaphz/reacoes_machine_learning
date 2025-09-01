@@ -6,21 +6,50 @@
     <title>Reacoes</title>
     <!-- Link para estilos css-->
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/image.css" />
   </head>
   <body>
     <div class="container">
-      <h1>ACERTE A REAÇÃO PEDIDA</h1>
+      <h1>AI-REACT</h1>
 
-      <div class="image ativo">
-        <img src="assets/images/emogi_neutro.png" alt="neutro" />
-      </div>
+      <div class="imagemReacao">
+        <div class="imagem ativo">
+          <img src="assets/images/emogi_neutro.png" alt="emogi_neutro" />
+        </div>
 
-      <div class="text-reacao">
-        <h2>A reação é:</h2>
+        <div class="imagem">
+          <img src="assets/images/emogi_angry.png" alt="emogi_angry" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_disgust.png" alt="emogi_disgust" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_fear.png" alt="emogi_fear" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_happy.png" alt="emogi_happy" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_neutro.png" alt="emogi_neutro" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_sad.png" alt="emogi_sad" />
+        </div>
+
+        <div class="imagem">
+          <img src="assets/images/emogi_surprise.png" alt="emogi_surprise" />
+        </div>
       </div>
 
       <div class="label-container">
-        <div class="label">insira a frase que deseja que o boneco reaja:</div>
+        <div class="label">
+          enter the phrase you want the emoji to react to:
+        </div>
         <textarea
           class="container-input smooth-type"
           type="input-text"
@@ -28,7 +57,7 @@
         ></textarea>
       </div>
 
-      <button id="predict-btn" class="button">REAGIR</button>
+      <button id="predict-btn" class="button">REACT</button>
 
       <div class="result" id="result"></div>
     </div>

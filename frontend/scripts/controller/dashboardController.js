@@ -5,13 +5,13 @@ const handlePrediction = async () => {
   const texto = DashboardView.getInputText();
 
   if (!texto) {
-    DashboardView.displayResult("Por favor, insira um texto.");
+    DashboardView.displayResult("Neutral");
     return;
   }
 
   try {
     const prediction = await DashboardModel.makePrediction(texto);
-    DashboardView.displayResult(`A reação foi de: ${prediction}`); //TAMBÉM ADAPTAR PARA EXIBIR IMAGEM
+    DashboardView.displayResult(`The reaction is: ${prediction}`);
   } catch (error) {
     DashboardView.displayResult(error.message);
   }

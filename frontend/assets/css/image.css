@@ -1,0 +1,13 @@
+.imagemReacao .imagem {
+  display: none;
+}
+
+.imagemReacao .imagem.ativo {
+  display: block;
+}
+
+.imagemReacao .imagem img {
+  width: 420px;
+  height: 420px;
+  object-fit: contain;
+}
