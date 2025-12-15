@@ -12,13 +12,13 @@
   <body>
     <div class="header" id="header">
       <div class="navigation_header" id="navigation_header">
-        <a href="../frontend/index.html" class="active">REACT</a>
-        <a href="../frontend/game.html">GAME</a>
+        <a href="../frontend/index.html">REACT</a>
+        <a href="../frontend/game.html" class="active">GAME</a>
       </div>
     </div>
 
     <div class="container">
-      <h1>AI-REACT</h1>
+      <h1>AI-GAME</h1>
 
       <div class="imagemReacao">
         <div class="imagem ativo">
@@ -55,14 +55,16 @@
       </div>
 
       <div class="label-container">
-        <div class="label">
-          enter the phrase you want the emoji to react to:
-        </div>
+        <div class="label">the emogi wants:</div>
+        <div class="label_random">PLACEHOLDER</div>
         <textarea
           class="container-input smooth-type"
           type="input-text"
           id="input-text"
         ></textarea>
+        <div class="label">your guess is:</div>
+        <div class="label_result_right">PLACEHOLDER RIGHT</div>
+        <div class="label_result_wrong">PLACEHOLDER WRONG</div>
       </div>
 
       <button id="predict-btn" class="button">REACT</button>
