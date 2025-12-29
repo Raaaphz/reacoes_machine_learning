@@ -62,9 +62,10 @@
           type="input-text"
           id="input-text"
         ></textarea>
-        <div class="label">your guess is:</div>
-        <div class="label_result_right">PLACEHOLDER RIGHT</div>
-        <div class="label_result_wrong">PLACEHOLDER WRONG</div>
+        <div class="result" id="result"></div>
+        <div class="label" id="score">
+          Streak: <span id="score_value">0</span>
+        </div>
       </div>
 
       <button id="predict-btn" class="button">REACT</button>
@@ -72,10 +73,6 @@
       <div class="result" id="result"></div>
     </div>
     <!-- SCRIPTS JS-->
-    <script src="scripts/controller/randomController.js"></script>
-    <script
-      type="module"
-      src="scripts/controller/dashboardController.js"
-    ></script>
+    <script type="module" src="scripts/controller/randomController.js"></script>
   </body>
 </html>
